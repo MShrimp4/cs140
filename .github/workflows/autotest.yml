@@ -16,7 +16,9 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y qemu
     - name: build utils
-      run: make
+      run: |
+        ls
+        make
       working-directory: pintos/src/utils
   build:
     runs-on: ubuntu-latest
