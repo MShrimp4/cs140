@@ -22,10 +22,10 @@ jobs:
         echo "$GITHUB_WORKSPACE/bin" >> $GITHUB_PATH
     - name: build utils
       working-directory: pintos/src/utils
-      run: make CCPROG=gcc-${{ matrix.gcc }}
+      run: make CCPROG=gcc
     - name: build threads
       working-directory: pintos/src/threads
-      run: make CCPROG=gcc-${{ matrix.gcc }}
+      run: make CCPROG=gcc
     - name: check threads
       working-directory: pintos/src/threads
-      run: make check CCPROG=gcc-${{ matrix.gcc }}
+      run: make check CCPROG=gcc
