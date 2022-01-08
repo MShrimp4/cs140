@@ -12,7 +12,9 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Install dependencies
-      run: sudo apt-get install -y qemu
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y qemu
     - name: build utils
       run: make
       working-directory: pintos/src/utils
