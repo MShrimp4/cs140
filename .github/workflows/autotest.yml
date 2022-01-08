@@ -28,6 +28,4 @@ jobs:
       run: make CCPROG=gcc
     - name: check threads
       working-directory: pintos/src/threads/build
-      run: |
-        pintos -- run alarm-multiple
-        make check CCPROG=gcc
+      run: make check CCPROG=gcc
