@@ -15,11 +15,12 @@ jobs:
     - uses: actions/checkout@v2
     - name: Checkout subdirectories
       run: git submodule update --init --recursive
-    - name: Install dependencies
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y qemu
-        echo "$GITHUB_WORKSPACE/bin" >> $GITHUB_PATH
+    - name: Docker Setup QEMU
+      uses: docker/setup-qemu-action@v1.2.0
+      with:
+        platforms: 386
+    - name: Setup path
+      run: echo "$GITHUB_WORKSPACE/bin" >> $GITHUB_PATH
     - name: build utils
       working-directory: pintos/src/utils
       run: make CCPROG=gcc
