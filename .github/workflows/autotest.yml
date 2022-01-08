@@ -11,7 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PINTOSDIR: $GITHUB_WORKSPACE/pintos
-      CCPROG: gcc-${{ matrix.gcc }}
     steps:
     - uses: actions/checkout@v2
     - name: Checkout subdirectories
@@ -23,10 +22,10 @@ jobs:
         echo "$GITHUB_WORKSPACE/bin" >> $GITHUB_PATH
     - name: build utils
       working-directory: pintos/src/utils
-      run: make
+      run: make CCPROG=gcc-${{ matrix.gcc }}
     - name: build threads
       working-directory: pintos/src/threads
-      run: make
+      run: make CCPROG=gcc-${{ matrix.gcc }}
     - name: check threads
       working-directory: pintos/src/threads
-      run: make check
+      run: make check CCPROG=gcc-${{ matrix.gcc }}
