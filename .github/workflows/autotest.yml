@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  install-deps:
+  do:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -19,32 +19,10 @@ jobs:
         sudo apt-get install -y qemu
     - name: build utils
       working-directory: pintos/src/utils
-      run: |
-        make
-  build:
-    runs-on: ubuntu-latest
-    needs: install-deps
-    env:
-      PINTOSDIR: $GITHUB_WORKSPACE/pintos
-      PATH: $PATH:$GITHUB_WORKSPACE/bin
-      CC: gcc-${{ matrix.gcc }}
-      CXX: g++-${{ matrix.gcc }}
-
-    steps:
+      run: make
     - name: build threads
       working-directory: pintos/src/threads
       run: make
-
-  tests:
-    runs-on: ubuntu-latest
-    needs: build
-    env:
-      PINTOSDIR: $GITHUB_WORKSPACE/pintos
-      PATH: $PATH:$GITHUB_WORKSPACE/bin
-      CC: gcc-${{ matrix.gcc }}
-      CXX: g++-${{ matrix.gcc }}
-    
-    steps:
     - name: check threads
       working-directory: pintos/src/threads
       run: make check
