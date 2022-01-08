@@ -1,0 +1,43 @@
+name: Run pintos tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      PINTOSDIR: ${{env.base_directory}}/pintos
+      PATH: $PATH:${{env.base_directory}}/bin
+      CC: gcc-${{ matrix.gcc }}
+      CXX: g++-${{ matrix.gcc }}
+
+    steps:
+    - uses: actions/checkout@v2
+      
+    - name: Install dependencies
+      run: sudo apt-get install -y qemu
+    
+    - name: build utils
+      run: cd $PINTOSDIR/utils && make
+      
+    - name: build threads
+      run: cd $PINTOSDIR/threads && make
+
+  tests:
+    runs-on: ubuntu-latest
+    needs: build
+    env:
+      PINTOSDIR: ${{env.base_directory}}/pintos
+      PATH: $PATH:${{env.base_directory}}/bin
+      CC: gcc-${{ matrix.gcc }}
+      CXX: g++-${{ matrix.gcc }}
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: check threads
+      run: cd $PINTOSDIR/threads && make check
