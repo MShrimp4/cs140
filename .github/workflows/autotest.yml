@@ -9,6 +9,10 @@ on:
 jobs:
   do:
     runs-on: ubuntu-latest
+    env:
+      PINTOSDIR: $GITHUB_WORKSPACE/pintos
+      PATH: $PATH:$GITHUB_WORKSPACE/bin
+      CCPROG: gcc-${{ matrix.gcc }}
     steps:
     - uses: actions/checkout@v2
     - name: Checkout subdirectories
