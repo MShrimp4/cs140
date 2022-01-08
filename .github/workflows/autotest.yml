@@ -18,14 +18,14 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y qemu
+        sudo apt-get install -y qemu gcc-4.8
         echo "$GITHUB_WORKSPACE/bin" >> $GITHUB_PATH
     - name: build utils
       working-directory: pintos/src/utils
-      run: make CCPROG=gcc
+      run: make CCPROG=gcc-4.8
     - name: build threads
       working-directory: pintos/src/threads
-      run: make CCPROG=gcc
+      run: make CCPROG=gcc-4.8
     - name: check threads
       working-directory: pintos/src/threads
-      run: make check CCPROG=gcc
+      run: make check CCPROG=gcc-4.8
