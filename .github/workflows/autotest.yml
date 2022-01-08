@@ -11,15 +11,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Checkout subdirectories
+      run: git submodule update --init --recursive
     - name: Install dependencies
       run: |
         sudo apt-get update
         sudo apt-get install -y qemu
     - name: build utils
-      run: |
-        ls
-        make
       working-directory: pintos/src/utils
+      run: |
+        make
   build:
     runs-on: ubuntu-latest
     needs: install-deps
@@ -31,8 +32,8 @@ jobs:
 
     steps:
     - name: build threads
-      run: make
       working-directory: pintos/src/threads
+      run: make
 
   tests:
     runs-on: ubuntu-latest
@@ -45,5 +46,5 @@ jobs:
     
     steps:
     - name: check threads
-      run: make check
       working-directory: pintos/src/threads
+      run: make check
