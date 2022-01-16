@@ -23,9 +23,24 @@ jobs:
     - name: build utils
       working-directory: pintos/src/utils
       run: make CCPROG=gcc
+
     - name: build threads
       working-directory: pintos/src/threads
       run: make CCPROG=gcc
     - name: check threads
       working-directory: pintos/src/threads/build
+      run: make check CCPROG=gcc
+
+    - name: build userprog
+      working-directory: pintos/src/userprog
+      run: make CCPROG=gcc
+    - name: check userprog
+      working-directory: pintos/src/userprog/build
+      run: make check CCPROG=gcc
+
+    - name: build vm
+      working-directory: pintos/src/vm
+      run: make CCPROG=gcc
+    - name: check vm
+      working-directory: pintos/src/vm/build
       run: make check CCPROG=gcc
